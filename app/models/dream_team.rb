@@ -1,0 +1,2 @@
+class DreamTeam < ApplicationRecord
+end

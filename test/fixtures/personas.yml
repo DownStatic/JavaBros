@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Name: MyString
+  Origin: MyString
+  Alignment: MyString
+  Role: MyString
+  Image: MyString
+  Leader: MyString
+  boolean: MyString
+  Power: MyString
+  integer: MyString
+
+two:
+  Name: MyString
+  Origin: MyString
+  Alignment: MyString
+  Role: MyString
+  Image: MyString
+  Leader: MyString
+  boolean: MyString
+  Power: MyString
+  integer: MyString
