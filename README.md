@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome to JavaBros! Face off your favorite video game characters in a fantasy football-style brawl.
 
-Things you may want to cover:
+MVP: Create and View teams and personas through the front end. A team has exactly 5 personas. A team requires 1 leader. The same persona should be able to be added to more than 1 team.
 
-* Ruby version
+Clicking on a team should bring that team's details to the front.
 
-* System dependencies
+Clicking on a persona should bring that persona to the front.
 
-* Configuration
+There should be a display screen showing the matchup statistics.
 
-* Database creation
+There should be a button to run the match.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+There should be a results screen (victory/defeat)
