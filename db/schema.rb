@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 2018_10_22_180612) do
   end
 
   create_table "rosters", force: :cascade do |t|
-    t.integer "DT_id"
-    t.integer "P_id"
+    t.integer "dream_team_id"
+    t.integer "persona_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

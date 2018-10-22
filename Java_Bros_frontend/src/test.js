@@ -38,11 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById(`Team${selectedTeam.id}`).innerHTML += renderPersona(P)
         }
       })
-      document.addEventListener("click", event => {
-        if(event.target.dataset.id){
-          console.log(event.target)
-        }
-      })
   })
 
   fetch(Ps_path).then(res => res.json()).then(json => {
@@ -60,8 +55,7 @@ const renderDT = function(DT){
     <li>${DT.Name}
       <ol id=Team${DT.id}></ol>
     </li>
-  </ul>
-  <button data-id=${DT.id}>Edit ${DT.Name}</button>`
+  </ul>`
 }
 
 const renderPersona = function(P){
