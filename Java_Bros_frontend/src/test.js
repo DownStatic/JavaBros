@@ -12,46 +12,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const select2 = document.getElementById('team_2_select')
   const div1 = document.getElementById('T1')
   const div2 = document.getElementById('T2')
+  const modal = document.getElementById('Personae')
+  const roster = modal.firstElementChild
+
 
   fetch(DTs_path).then(res => res.json()).then(json => {
-      for(let DT of json){
-        select1.innerHTML += `<option data-id=${DT.id}>${DT.Name}</option>`
-        select2.innerHTML += `<option data-id=${DT.id}>${DT.Name}</option>`
-        }
-      select1.addEventListener("change", (event) =>{
-        console.log(event.target.value)
-        let selectedTeam = json.find((t) => t.Name == event.target.value)
-        console.log(selectedTeam)
-        console.log(div1)
-        div1.innerHTML = renderDT(selectedTeam)
+    for(let DT of json){
+      select1.innerHTML += `<option data-id=${DT.id}>${DT.Name}</option>`
+      select2.innerHTML += `<option data-id=${DT.id}>${DT.Name}</option>`
+    }
+
+    select1.addEventListener("change", (event) =>{
+      // console.log(event.target.value)
+      let selectedTeam = json.find((t) => t.Name == event.target.value)
+      // console.log(selectedTeam)
+      // console.log(div1)
+      div1.innerHTML = renderDT(selectedTeam)
+      for(let P of selectedTeam.personas){
+        document.getElementById(`Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+      }
+    })
+
+    select2.addEventListener("change", (event) =>{
+      // console.log(event.target.value)
+      let selectedTeam = json.find((t) => t.Name == event.target.value)
+      // console.log(selectedTeam)
+      // console.log(div2)
+      div2.innerHTML = renderDT(selectedTeam)
+      for(let P of selectedTeam.personas){
+        div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+      }
+    })
+
+    document.addEventListener("click", event => {
+      if(event.target.dataset.id){
+        modal.style.display = "block";
+        // console.log(roster)
+        let selectedTeam = json.find((t) => t.id == event.target.dataset.id)
+        // console.log(selectedTeam)
+        roster.innerHTML = `<h3>${selectedTeam.Name}</h3>`
         for(let P of selectedTeam.personas){
-          document.getElementById(`Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+          roster.innerHTML += renderPersona(P)
         }
-      })
-      select2.addEventListener("change", (event) =>{
-        console.log(event.target.value)
-        let selectedTeam = json.find((t) => t.Name == event.target.value)
-        console.log(selectedTeam)
-        console.log(div2)
-        div2.innerHTML += renderDT(selectedTeam)
-        for(let P of selectedTeam.personas){
-          document.getElementById(`Team${selectedTeam.id}`).innerHTML += renderPersona(P)
-        }
-      })
-      document.addEventListener("click", event => {
-        if(event.target.dataset.id){
-          let modal = document.getElementById('Personae')
-          modal.style.display = "block";
-          let roster = modal.firstElementChild
-          console.log(roster)
-          let selectedTeam = json.find((t) => t.id == event.target.dataset.id)
-          console.log(selectedTeam)
-          roster.innerHTML += `<h3>${selectedTeam.Name}</h3>`
-          for(let P of selectedTeam.personas){
-            roster.innerHTML += renderPersona(P)
-          }
-        }
-      })
+      }
+
+      if(event.target.id === "Personae") {
+        modal.style.display = "none";
+      }
+    })
   })
 
 })
