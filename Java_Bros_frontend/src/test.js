@@ -8,12 +8,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const body = document.getElementById('main')
   const dts = document.getElementById('DreamTeams')
   const personae = document.getElementById('Personae')
+  const teamForm = document.querySelector('.create-form')
+  const addBtn = document.getElementById('new-team-btn')
+  const addTeamArea = document.getElementById('add-team')
+  const leaderSelect =document.getElementById("Leader-select")
+  const personaeSelect =document.getElementsByClassName("Persona-select")
   const select1 = document.getElementById('team_1_select')
   const select2 = document.getElementById('team_2_select')
   const div1 = document.getElementById('T1')
   const div2 = document.getElementById('T2')
   const modal = document.getElementById('Personae')
   const roster = modal.firstElementChild
+
+  let addTeam = false
+  addBtn.addEventListener('click', () => {
+    // hide & seek with the form
+    addTeam = !addTeam
+    if (addTeam) {
+      teamForm.style.display = 'block'
+      addTeamArea.style.display = 'none'
+    }
+  })
+
+  fetch(Ps_path).then(res => res.json()).then(json => {
+    for(let Ps of json){
+      if (Ps.Leader) {
+        leaderSelect.innerHTML += `<option>${Ps.Name}</option>`
+      }
+      for(let pSelect of personaeSelect){
+        pSelect.innerHTML += `<option>${Ps.Name}</option>`
+      }
+    }
+  })
+
+  teamForm.addEventListener('submit', event => {
+    event.preventDefault();
+    teamForm.style.display = 'none'
+    addTeamArea.style.display = 'block'
+    addTeam = false
+  })
 
 
   fetch(DTs_path).then(res => res.json()).then(json => {
