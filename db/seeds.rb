@@ -1,24 +1,60 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
 puts "Making teams..."
 DreamTeam.create(Name: "The Chosen Ones", Banner: "token_url", Alignment: "LG")
 DreamTeam.create(Name: "BigBads", Banner: "scary_url", Alignment: "NE")
 
 puts "Integrating personas..."
-Persona.create(Name: "Mario", Origin: "Mario", Alignment: "NG", Role: "Bruiser", Image: "mario_url", Leader: true, Power: 99)
-Persona.create(Name: "Luigi", Origin: "Mario", Alignment: "CG", Role: "Bruiser", Image: "luigi_url", Leader: false, Power: 98)
-Persona.create(Name: "Cecil", Origin: "Final Fantasy", Alignment: "NG", Role: "Tank", Image: "cecil_url", Leader: true, Power: 123)
-Persona.create(Name: "Samus", Origin: "Metroid", Alignment: "TN", Role: "Damage", Image: "samus_url", Leader: false, Power: 173)
+Persona.create(Name: "Mario", Origin: "Mario", Alignment: "NG", Role: "Bruiser", Image: "mario_url", Leader: true, Power: 399)
+Persona.create(Name: "Luigi", Origin: "Mario", Alignment: "CG", Role: "Bruiser", Image: "luigi_url", Leader: false, Power: 398)
+Persona.create(Name: "Cecil Harvey", Origin: "Final Fantasy", Alignment: "NG", Role: "Tank", Image: "cecil_url", Leader: true, Power: 423)
+Persona.create(Name: "Samus", Origin: "Metroid", Alignment: "TN", Role: "Damage", Image: "samus_url", Leader: false, Power: 373)
 Persona.create(Name: "Handsome Jack", Origin: "Borderlands", Alignment: "NE", Role: "Damage", Image: "jack_url", Leader: true, Power: 400)
-Persona.create(Name: "Gary Oak", Origin: "Pokemon", Alignment: "CN", Role: "Support", Image: "garyoak_url", Leader: false, Power: 55)
+Persona.create(Name: "Gary Oak", Origin: "Pokemon", Alignment: "CN", Role: "Support", Image: "garyoak_url", Leader: false, Power: 255)
 Persona.create(Name: "Dante", Origin: "Devil May Cry", Alignment: "CN", Role: "Bruiser", Image: "dante_url", Leader: false, Power: 275)
 Persona.create(Name: "Booker Dewitt", Origin: "BioShock", Alignment: "NG", Role: "Damage", Image: "booker_url", Leader: false, Power: 399)
+Persona.create(Name: "Sephiroth", Origin: "Final Fantasy", Alignment: "NE", Role: "Bruiser", Image: "sephiroth_url", Leader: false, Power: 510)
+Persona.create(Name: "Nina", Origin: "Breath of Fire", Alignment: "LG", Role: "Support", Image: "nina_bof_url", Leader: false, Power: 350)
+Persona.create(Name: "Morrigan", Origin: "Darkstalkers", Alignment: "TN", Role: "Damage", Image: "sub_zero_url", Leader: false, Power: 505)
+Persona.create(Name: "Sub-Zero", Origin: "Mortal Kombat", Alignment: "LN", Role: "Bruiser", Image: "sub_zero_url", Leader: false, Power: 415)
+Persona.create(Name: "Chrom", Origin: "Fire Emblem", Alignment: "LG", Role: "Tank", Image: "chrom_url", Leader: true, Power: 350)
+Persona.create(Name: "KOS-MOS", Origin: "Xenosaga", Alignment: "NG", Role: "Tank", Image: "kosmos_url", Leader: false, Power: 600)
+Persona.create(Name: "Thrall", Origin: "Warcraft", Alignment: "TN", Role: "Hybrid", Image: "thrall_url", Leader: true, Power: 375)
+Persona.create(Name: "Mew", Origin: "Pokemon", Alignment: "TN", Role: "Support", Image: "mew_url", Leader: false, Power: 290)
+Persona.create(Name: "Garrus Vakarian", Origin: "Mass Effect", Alignment: "CG", Image: "garrus_url", Role: "Hybrid", Leader: true, Power: 425)
+Persona.create(Name: "T-elos", Origin: "Xenosaga", Alignment: "NE", Role: "Bruiser", Image: "telos_url", Leader: false, Power: 460)
+Persona.create(Name: "Lavos", Origin: "Chrono Trigger", Alignment: "CE", Role: "Tank", Image: "lavos_url", Leader: false, Power: 600)
+Persona.create(Name: "Spyro", Origin: "Spyro the Dragon", Alignment: "CG", Role: "Damage", Image: "spyro_url", Leader: true, Power: 500)
+Persona.create(Name: "Ryu", Origin: "Street Fighter", Alignment: "NG", Role: "Bruiser", Image: "ryu_url", Leader: true, Power: 600)
+Persona.create(Name: "Akuma", Origin: "Street Fighter", Alignment: "CE", Role: "Bruiser", Image: "akuma_url", Leader: true, Power: 580)
+Persona.create(Name: "Zero", Origin: "Mega Man X", Alignment: "LN", Role: "Damage", Image: "zero_url", Leader: false, Power: 440)
+Persona.create(Name: "X", Origin: "Mega Man X", Alignment: "LG", Role: "Tank", Image: "X_url", Leader: true, Power: 520)
+Persona.create(Name: "Estinien", Origin: "Final Fantasy", Alignment: "CN", Role: "Damage", Image: "estinien_url", Leader: false, Power: 475)
+Persona.create(Name: "Deneb", Origin: "Tactics Ogre", Alignment: "TN", Image: "deneb_url", Role: "Support", Leader: true, Power: 350)
+Persona.create(Name: "Fox", Origin: "Starfox", Alignment: "NG", Image: "starfox_url", Role: "Bruiser", Leader: true, Power: 280)
+Persona.create(Name: "Vergil", Origin: "Devil May Cry", Alignment: "LE", Image: "vergil_url", Role: "Bruiser", Leader: false, Power: 280)
+Persona.create(Name: "Solaire", Origin: "Dark Souls", Alignment: "LG", Image: "solaire_url", Role: "Tank", Leader: true, Power: 440)
+Persona.create(Name: "Siegfried", Origin: "Soul Calibur", Alignment: "NG", Image: "siegfried_url", Role: "Tank", Leader: true, Power: 305)
+Persona.create(Name: "Grimgor Ironhide", Origin: "Warhammer", Alignment: "CE", Image: "grimgor_url", Role: "Bruiser", Leader: true, Power: 700)
+Persona.create(Name: "Tyrande Whisperwind", Origin: "Warcraft", Alignment: "LG", Image: "tyrande_url", Role: "Support", Leader: true, Power: 390)
+Persona.create(Name: "Solid Snake", Origin: "Metal Gear", Alignment: "CG", Image: "snake_url", Role: "Hybrid", Leader: false, Power: 555)
+Persona.create(Name: "PaRappa the Rapper", Origin: "PaRappa the Rapper", Alignment: "TN", Image: "parappa_url", Role: "Support", Leader: false, Power: 452)
+Persona.create(Name: "Peppy", Origin: "Starfox", Alignment: "LG", Image: "peppy_url", Role: "Damage", Leader: false, Power: 200)
+Persona.create(Name: "Sonic", Origin: "Sonic the Hedgehod", Alignment: "CG", Image: "sonic_url", Role: "Damage", Leader: false, Power: 410)
+Persona.create(Name: "Aranea Highwind", Origin: "Final Fantasy", Alignment: "LN", Image: "aranea_url", Role: "Bruiser", Leader: false, Power: 385)
+Persona.create(Name: "Q*bert", Origin: "Q*bert", Alignment: "TN", Image: "qbert_url", Role: "Hybrid", Leader: false, Power: 250)
+Persona.create(Name: "Geralt", Origin: "The Witcher", Alignment: "CG", Image: "geralt_url", Role: "Hybrid", Leader: false, Power: 380)
+Persona.create(Name: "Kerrigan", Origin: "Starcraft", Alignment: "NE", Image: "kerrigan_url", Role: "Damage", Leader: true, Power: 405)
+Persona.create(Name: "Bowser", Origin: "Mario", Alignment: "CE", Image: "bowser_url", Role: "Tank", Leader: true, Power: 320)
+Persona.create(Name: "Duke Nukem", Origin: "Duke Nukem", Alignment: "CG", Image: "nukem_url", Role: "Bruiser", Leader: false, Power: 465)
+Persona.create(Name: "Ungrim Ironfist", Origin: "Warhammer", Alignment: "CN", Image: "ungrim_url", Role: "Damage", Leader: true, Power: 500)
+Persona.create(Name: "Mitsurugi", Origin: "Soul Calibur", Alignment: "TN", Image: "mitsurugi_url", Role: "Tank", Leader: false, Power: 425)
+Persona.create(Name: "Karl Franz", Origin: "Warhammer", Alignment: "LG", Image: "franz_url", Role: "Bruiser", Leader: true, Power: 475)
+Persona.create(Name: "Nathan Drake", Origin: "Uncharted", Alignment: "CG", Image: "drake_url", Role: "Hybrid", Leader: false, Power: 370)
+Persona.create(Name: "Lara Croft", Origin: "Tomb Raider", Alignment: "CG", Image: "lara_url", Role: "Damage", Leader: false, Power: 340)
+Persona.create(Name: "Delita Hyral", Origin: "Final Fantasy", Alignment: "LE", Image: "delita_url", Role: "Hybrid", Leader: true, Power: 404)
+Persona.create(Name: "Andrew Ryan", Origin: "BioShock", Alignment: "LE", Image: "andrewryan_url", Role: "Support", Leader: true, Power: 390)
+
+
 
 puts "Assigning teams..."
 Roster.create(dream_team_id: 1, persona_id: 1)
