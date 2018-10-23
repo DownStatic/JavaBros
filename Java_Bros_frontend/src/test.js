@@ -38,13 +38,20 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById(`Team${selectedTeam.id}`).innerHTML += renderPersona(P)
         }
       })
-  })
-
-  fetch(Ps_path).then(res => res.json()).then(json => {
-    personae.innerHTML += `<h4>Dramatis Personae</h4>`
-    for(let P of json){
-      personae.innerHTML += `<ul><li>${P.Name}</li></ul>`
-    }
+      document.addEventListener("click", event => {
+        if(event.target.dataset.id){
+          let modal = document.getElementById('Personae')
+          modal.style.display = "block";
+          let roster = modal.firstElementChild
+          console.log(roster)
+          let selectedTeam = json.find((t) => t.id == event.target.dataset.id)
+          console.log(selectedTeam)
+          roster.innerHTML += `<h3>${selectedTeam.Name}</h3>`
+          for(let P of selectedTeam.personas){
+            roster.innerHTML += renderPersona(P)
+          }
+        }
+      })
   })
 
 })
@@ -55,7 +62,8 @@ const renderDT = function(DT){
     <li>${DT.Name}
       <ol id=Team${DT.id}></ol>
     </li>
-  </ul>`
+  </ul>
+  <button data-id=${DT.id}>Edit ${DT.Name}</button>`
 }
 
 const renderPersona = function(P){
