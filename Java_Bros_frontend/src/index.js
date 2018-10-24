@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById('Personae')
   const roster = modal.firstElementChild
 
+
+
   //Form toggle
   let addTeam = false
   addBtn.addEventListener('click', () => {
@@ -168,7 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
           alert(`${team1} has triumphed`)
         }
       }
-
     })
   })
 
