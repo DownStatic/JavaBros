@@ -17,9 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const select2 = document.getElementById('team_2_select')
   const div1 = document.getElementById('T1')
   const div2 = document.getElementById('T2')
+  const matchup = document.getElementById('matchup')
   const modal = document.getElementById('Personae')
   const roster = modal.firstElementChild
 
+  //Form toggle
   let addTeam = false
   addBtn.addEventListener('click', () => {
     addTeam = !addTeam
@@ -29,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  //Getting the personae and putting htem in the form selections...
+  //Getting the personae and putting them in the form selections...
   fetch(Ps_path).then(res => res.json()).then(json => {
     for(let Ps of json){
       if (Ps.Leader) {
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  //This is the logic for the team creation form
+  //This is the logic for the team creation form submission
   teamForm.addEventListener('submit', event => {
     event.preventDefault();
     teamForm.style.display = 'none'
@@ -83,7 +85,24 @@ document.addEventListener("DOMContentLoaded", () => {
       let selectedTeam = frontTeams.find((t) => t.Name == event.target.value)
       div1.innerHTML = renderDT(selectedTeam)
       for(let P of selectedTeam.personas){
-        document.getElementById(`Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+        if(selectedTeam.leader.id == P.id){
+          div1.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
+        }
+        else{
+          div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+        }
+      }
+      if(div1.innerHTML && div2.innerHTML){
+        let team1_id = div1.lastElementChild.dataset.id
+        let team2_id = div2.lastElementChild.dataset.id
+        let team1 = frontTeams.find(t => t.id == team1_id)
+        let team2 = frontTeams.find(t => t.id == team2_id)
+        console.log(`${team1.Name} versus ${team2.Name}`)
+        matchup.innerHTML += `
+        <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
+        <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
+        <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
+        `
       }
     })
 
@@ -91,7 +110,24 @@ document.addEventListener("DOMContentLoaded", () => {
       let selectedTeam = frontTeams.find((t) => t.Name == event.target.value)
       div2.innerHTML = renderDT(selectedTeam)
       for(let P of selectedTeam.personas){
-        div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+        if(selectedTeam.leader.id == P.id){
+          div2.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
+        }
+        else{
+          div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+        }
+      }
+      if(div1.innerHTML && div2.innerHTML){
+        let team1_id = div1.lastElementChild.dataset.id
+        let team2_id = div2.lastElementChild.dataset.id
+        let team1 = frontTeams.find(t => t.id == team1_id)
+        let team2 = frontTeams.find(t => t.id == team2_id)
+        console.log(`${team1.Name} versus ${team2.Name}`)
+        matchup.innerHTML += `
+        <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
+        <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
+        <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
+        `
       }
     })
 

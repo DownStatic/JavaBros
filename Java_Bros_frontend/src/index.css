@@ -8,6 +8,11 @@ ol {
   font-weight: bold;
 }
 
+.list-leader {
+  font-style: italic;
+  text-shadow: 2px 2px 2px red;
+}
+
 .create-form {
   display: none;/* Hidden by default */
 }
