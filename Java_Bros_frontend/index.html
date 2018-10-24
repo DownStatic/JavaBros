@@ -8,50 +8,56 @@
 
   <div>
     <body id="main">
-        <center><h1> Welcome to JavaBros </h1></center>
-        <h2> Create Team </h2>
-
-      <form class="create-form">
-        Team Name<input type="text" name="" placeholder="team name">
-        <label>The Leader</label>
-        <select id="Leader-select">
+        <center><h1> Welcome to JavaBros </h1>
+        <label class="team1label">Load Team 1</label>||<label class="team2label">Load Team 2</label><br>
+        <select id="team_1_select">
           <option disabled selected value style="display:none"></option>
         </select>
-        <label>Slot#2</label>
-        <select class ="Persona-select">
+        <select id="team_2_select">
           <option disabled selected value style="display:none"></option>
-        </select>
-        <label>Slot#3</label>
-        <select class ="Persona-select">
-          <option disabled selected value style="display:none"></option>
-        </select>
-        <label>Slot#4</label>
-        <select class ="Persona-select">
-          <option disabled selected value style="display:none"></option>
-        </select>
-        <label>Slot#5</label>
-        <select class ="Persona-select">
-          <option disabled selected value style="display:none"></option>
-        </select>
-        <input type="submit">
-      </form>
-
+        </select></center><br>
+      <div class="teamform">
+        <form class="create-form">
+          Team Name<input type="text" name="" placeholder="team name">
+          <label>Team Leader</label>
+          <select id="Leader-select">
+            <option disabled selected value style="display:none"></option>
+          </select>
+          <label>Slot#2</label>
+          <select class ="Persona-select">
+            <option disabled selected value style="display:none"></option>
+          </select>
+          <label>Slot#3</label>
+          <select class ="Persona-select">
+            <option disabled selected value style="display:none"></option>
+          </select>
+          <label>Slot#4</label>
+          <select class ="Persona-select">
+            <option disabled selected value style="display:none"></option>
+          </select>
+          <label>Slot#5</label>
+          <select class ="Persona-select">
+            <option disabled selected value style="display:none"></option>
+          </select>
+          <input type="submit">
+        </form>
+      </div>
     </div>
-    <p id='add-team' style='text-align:center'>Want to create a team?<button id='new-team-btn'>Create A Team!</button></p>
     <br>
-    <label>Load Team 1</label>
+    <div class="createbutton">
+      <p id='add-team' style='text-align:center'>Want to create a team?<button id='new-team-btn'>Create A Team!</button></p>
+    </div>
+    <br>
+    <!-- <label>Load Team 1</label>
     <select id="team_1_select">
       <option disabled selected value style="display:none"></option>
     </select>
     <label>Load Team 2</label>
     <select id="team_2_select">
       <option disabled selected value style="display:none"></option>
-    </select>
-    <div id="DreamTeams">
-      <h2>DREAM TEAMS</h2>
-      <div id="T1"></div>
-      <div id="T2"></div>
-    </div>
+    </select> -->
+    <div id="T1" class="left-sidebar"></div>
+    <div id="T2" class="right-sidebar"></div>
     <div id="matchup"></div>
   </body>
   <div id="Personae" class="modal">

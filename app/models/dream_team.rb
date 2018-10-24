@@ -5,8 +5,7 @@ class DreamTeam < ApplicationRecord
   validates :Name, uniqueness: true
 
   def calculatePower
-    overallPower = self.personas.map{|p| p.Power}.reduce(:+)
-    overallPower
+    self.personas.map{|p| p.Power}.reduce(:+)
   end
 
 end

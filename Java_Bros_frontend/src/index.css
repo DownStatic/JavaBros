@@ -8,6 +8,13 @@ ol {
   font-weight: bold;
 }
 
+#matchup {
+  position: fixed;
+  left: 20%;
+  right: 20%;
+  text-align: center;
+}
+
 .list-leader {
   font-style: italic;
   text-shadow: 2px 2px 2px red;
@@ -17,10 +24,24 @@ ol {
   display: none;/* Hidden by default */
 }
 
+.teamform {
+  position: fixed;
+  left: 20%;
+  right: 20%;
+  width: auto;
+  height: auto;
+  margin-bottom: 1%;
+}
+
+.createbutton {
+  position: relative;
+  margin-bottom: 1%;
+}
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 2; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -38,4 +59,30 @@ ol {
     border: 1px solid #888;
     height: 80%;
     width: 80%;
+}
+
+.left-sidebar {
+    height: 75%; /* 100% Full-height */
+    width: auto; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 5%; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.right-sidebar {
+    height: 75%; /* 100% Full-height */
+    width: auto; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 5%; /* Stay at the top */
+    right: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }

@@ -162,10 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
         let team1 = select1.value
         let team2 = select2.value
         if(victory > Number(event.target.dataset.team1power)){
-          alert(`${team1} has triumphed!`)
+          alert(`${team2} has triumphed!`)
         }
         else{
-          alert(`${team2} has triumphed`)
+          alert(`${team1} has triumphed`)
         }
       }
 

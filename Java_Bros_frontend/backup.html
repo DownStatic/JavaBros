@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./src/index.css">
+    <title></title>
+  </head>
+
+  <div>
+    <body id="main">
+        <center><h1> Welcome to JavaBros </h1></center>
+        <h2> Create Team </h2>
+
+      <form class="create-form">
+        Team Name<input type="text" name="" placeholder="team name">
+        <label>The Leader</label>
+        <select id="Leader-select">
+          <option disabled selected value style="display:none"></option>
+        </select>
+        <label>Slot#2</label>
+        <select class ="Persona-select">
+          <option disabled selected value style="display:none"></option>
+        </select>
+        <label>Slot#3</label>
+        <select class ="Persona-select">
+          <option disabled selected value style="display:none"></option>
+        </select>
+        <label>Slot#4</label>
+        <select class ="Persona-select">
+          <option disabled selected value style="display:none"></option>
+        </select>
+        <label>Slot#5</label>
+        <select class ="Persona-select">
+          <option disabled selected value style="display:none"></option>
+        </select>
+        <input type="submit">
+      </form>
+
+    </div>
+    <p id='add-team' style='text-align:center'>Want to create a team?<button id='new-team-btn'>Create A Team!</button></p>
+    <br>
+    <label>Load Team 1</label>
+    <select id="team_1_select">
+      <option disabled selected value style="display:none"></option>
+    </select>
+    <label>Load Team 2</label>
+    <select id="team_2_select">
+      <option disabled selected value style="display:none"></option>
+    </select>
+    <div id="DreamTeams">
+      <h2>DREAM TEAMS</h2>
+      <div id="T1"></div>
+      <div id="T2"></div>
+    </div>
+    <div id="matchup"></div>
+  </body>
+  <div id="Personae" class="modal">
+    <ul class="modal-content"></ul>
+  </div>
+  <!-- <script type="text/javascript", src="./src/index.js"></script> -->
+  <script type="text/javascript", src="./src/test.js"></script>
+</html>

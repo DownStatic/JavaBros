@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
       select2.innerHTML += `<option data-id=${DT.id}>${DT.Name}</option>`
     }
 
+    //load teams on select and create matchup
     select1.addEventListener("change", (event) =>{
       let selectedTeam = frontTeams.find((t) => t.Name == event.target.value)
       div1.innerHTML = renderDT(selectedTeam)
@@ -98,10 +99,11 @@ document.addEventListener("DOMContentLoaded", () => {
         let team1 = frontTeams.find(t => t.id == team1_id)
         let team2 = frontTeams.find(t => t.id == team2_id)
         console.log(`${team1.Name} versus ${team2.Name}`)
-        matchup.innerHTML += `
+        matchup.innerHTML = `
         <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
         <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
         <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
+        <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
         `
       }
     })
@@ -123,16 +125,18 @@ document.addEventListener("DOMContentLoaded", () => {
         let team1 = frontTeams.find(t => t.id == team1_id)
         let team2 = frontTeams.find(t => t.id == team2_id)
         console.log(`${team1.Name} versus ${team2.Name}`)
-        matchup.innerHTML += `
+        matchup.innerHTML = `
         <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
         <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
         <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
+        <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
         `
       }
     })
 
-    //Modal creation and logic
+    //Mouse clicks logic
     document.addEventListener("click", event => {
+      //Modal show logic
       if(event.target.dataset.id){
         modal.style.display = "block";
         // console.log(roster)
@@ -145,9 +149,26 @@ document.addEventListener("DOMContentLoaded", () => {
         roster.innerHTML += `<li>Expected Power: ${selectedTeam.overall_power}</li>`
       }
 
+      //Modal hide logic
       if(event.target.id === "Personae") {
         modal.style.display = "none";
       }
+
+      //Fight button!
+      if(event.target.className === "fight!"){
+        console.log("This gon' be a good one")
+        let total = Number(event.target.dataset.team1power) + Number(event.target.dataset.team2power)
+        let victory = Math.random()*total
+        let team1 = select1.value
+        let team2 = select2.value
+        if(victory > Number(event.target.dataset.team1power)){
+          alert(`${team2} has triumphed!`)
+        }
+        else{
+          alert(`${team1} has triumphed`)
+        }
+      }
+
     })
   })
 
