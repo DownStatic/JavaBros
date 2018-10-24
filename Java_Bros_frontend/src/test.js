@@ -156,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if(event.target === randomTeam1) {
         let ranteam1 = frontTeams[Math.floor(Math.random() * frontTeams.length)]
         let selectedTeam = ranteam1
+        select1.value = selectedTeam.Name
         div1.innerHTML = renderDT(selectedTeam)
         for(let P of selectedTeam.personas){
           if(selectedTeam.leader.id == P.id){
@@ -166,25 +167,14 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
 
-        if(div1.innerHTML && div2.innerHTML){
-          let team1_id = div1.lastElementChild.dataset.id
-          let team2_id = div2.lastElementChild.dataset.id
-          let team1 = frontTeams.find(t => t.id == team1_id)
-          let team2 = frontTeams.find(t => t.id == team2_id)
-          console.log(`${team1.Name} versus ${team2.Name}`)
-          matchup.innerHTML = `
-          <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
-          <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
-          <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
-          <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
-          `
-        }
+      renderMatchup(div1, div2)
       }
 
       //Random button 2
       if(event.target === randomTeam2) {
         let ranteam2 = frontTeams[Math.floor(Math.random() * frontTeams.length)]
         let selectedTeam = ranteam2
+        select2.value = selectedTeam.Name
         div2.innerHTML = renderDT(selectedTeam)
         for(let P of selectedTeam.personas){
           if(selectedTeam.leader.id == P.id){
@@ -195,20 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
 
-        if(div1.innerHTML && div2.innerHTML){
-          let team1_id = div1.lastElementChild.dataset.id
-          let team2_id = div2.lastElementChild.dataset.id
-          let team1 = frontTeams.find(t => t.id == team1_id)
-          let team2 = frontTeams.find(t => t.id == team2_id)
-          console.log(`${team1.Name} versus ${team2.Name}`)
-          matchup.innerHTML = `
-          <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
-          <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
-          <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
-          <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
-          `
-        }
-
+        renderMatchup(div1, div2)
       }
       //RANDOMIZE Persona Button
       if(event.target === randomPersona) {
@@ -233,7 +210,7 @@ const renderDT = function(DT){
 const renderPersona = function(P){
   return `
   <li>${P.Name}</li>
-  <img src="${solaire}" height="50">
+  <img src="${P.Image}" height="50">
   `
 }
 const renderMatchup = function(div1, div2){

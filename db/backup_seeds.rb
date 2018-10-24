@@ -57,9 +57,9 @@ Persona.create(Name: "Karl Franz", Origin: "Warhammer", Alignment: "LG", Image: 
 Persona.create(Name: "Nathan Drake", Origin: "Uncharted", Alignment: "CG", Image: "https://vignette.wikia.nocookie.net/uncharted-wyz/images/a/a8/DrakeU4RenderAvatar.png/revision/latest?cb=20170903174418&path-prefix=fr", Role: "Hybrid", Leader: false, Power: 370)
 Persona.create(Name: "Lara Croft", Origin: "Tomb Raider", Alignment: "CG", Image: "https://news-cdn.softpedia.com/images/news2/A-Young-and-Dirty-Lara-Croft-Gets-a-Grip-on-Your-Mac-May-31st-2.jpg", Role: "Damage", Leader: false, Power: 340)
 Persona.create(Name: "Delita Hyral", Origin: "Final Fantasy", Alignment: "LE", Image: "http://4.bp.blogspot.com/-rCHThqXn4j0/TanNavMeeHI/AAAAAAAAAck/iZ7plXsgjhU/s1600/017.jpg", Role: "Hybrid", Leader: true, Power: 404)
-Persona.create(Name: "Andrew Ryan", Origin: "BioShock", Alignment: "LE", Image: "https://statici.behindthevoiceactors.com/behindthevoiceactors/_img/chars/andrew-ryan-bioshock-2-36.3.jpg", Role: "Support", Leader: true, Power: 390)
-Persona.create(Name: "Alucard", Origin: "Castlevania", Alignment: "CN", Image: "https://figuya.com/uploads/product/profile_picture/11079/profile_castlevania-symphony-of-the-night-statue-alucard-53-cm20180305-32107-y1muet", Role: "Damage", Leader: false, Power: 455)
-Persona.create(Name: "Earthworm Jim", Origin: "Earthworm Jim", Alignment: "NG", Image: "https://vignette.wikia.nocookie.net/vsbattles/images/7/7e/Earthworm_jim_by_zeefster-d46dp3z.png/revision/latest/scale-to-width-down/400?cb=20170102021211", Role: "Bruiser", Leader: true, Power: 430)
+Persona.create(Name: "Andrew Ryan", Origin: "BioShock", Alignment: "LE", Image: "andrewryan_url", Role: "Support", Leader: true, Power: 390)
+Persona.create(Name: "Alucard", Origin: "Castlevania", Alignment: "CN", Image: "alucard_url", Role: "Damage", Leader: false, Power: 455)
+Persona.create(Name: "Earthworm Jim", Origin: "Earthworm Jim", Alignment: "NG", Image: "jim_url", Role: "Bruiser", Leader: true, Power: 430)
 
 
 
