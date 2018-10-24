@@ -8,6 +8,14 @@ ol {
   font-weight: bold;
 }
 
+#main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
 #matchup {
   position: fixed;
   left: 20%;
@@ -68,7 +76,10 @@ ol {
     z-index: 1; /* Stay on top */
     top: 5%; /* Stay at the top */
     left: 0;
-    background-color: #111; /* Black*/
+    background-color: #a64dff; /* Black*/
+    border: 2px black;
+    border-radius: 8px;
+    border-style: solid;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -81,7 +92,10 @@ ol {
     z-index: 1; /* Stay on top */
     top: 5%; /* Stay at the top */
     right: 0;
-    background-color: #111; /* Black*/
+    background-color: #a64dff; /* Black*/
+    border: 2px black;
+    border-radius: 8px;
+    border-style: solid;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
