@@ -1,5 +1,6 @@
 const DTs_path = 'http://localhost:3000/api/v1/dream_teams'
 const Ps_path = 'http://localhost:3000/api/v1/personas'
+const solaire = 'https://pre00.deviantart.net/537a/th/pre/i/2017/009/6/8/solaire_of_astora_by_emortal982-d8sal2b.jpg'
 let frontTeams
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -144,7 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log(selectedTeam)
         roster.innerHTML = `<h3>${selectedTeam.Name}</h3>`
         for(let P of selectedTeam.personas){
-          roster.innerHTML += renderPersona(P)
+          if(selectedTeam.leader.id == P.id){
+            roster.firstElementChild.insertAdjacentHTML('afterend',`<span class="list-leader">${renderPersona(P)}</span>`)
+          }
+          else{
+            roster.innerHTML += renderPersona(P)
+          }
         }
         roster.innerHTML += `<li>Expected Power: ${selectedTeam.overall_power}</li>`
       }
@@ -187,5 +193,8 @@ const renderDT = function(DT){
 }
 
 const renderPersona = function(P){
-  return `<li>${P.Name}</li>`
+  return `
+  <li>${P.Name}</li>
+  <img src="${solaire}" height="50">
+  `
 }
