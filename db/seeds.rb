@@ -1,12 +1,12 @@
 puts "Making teams..."
-DreamTeam.create(Name: "The Chosen Ones", Banner: "token_url", Alignment: "LG")
-DreamTeam.create(Name: "BigBads", Banner: "scary_url", Alignment: "NE")
-DreamTeam.create(Name: "SNEStle Crunch", Banner: "SNES_logo", Alignment: "TN")
-DreamTeam.create(Name: "Bad Boys", Banner: "badboys_logo", Alignment: "CN")
-DreamTeam.create(Name: "Femmes Fatales", Banner: "gaga_url", Alignment: "CG")
-DreamTeam.create(Name: "Final Fantasy Filtered", Banner: "ff_url", Alignment: "NG")
-DreamTeam.create(Name: "Best Bros", Banner: "bro_url", Alignment: "CG")
-DreamTeam.create(Name: "Zero Frame Fighters", Banner: "guilty_gear_url", Alignment: "LN")
+DreamTeam.create(Name: "The Chosen Ones", Banner: "token_url", Alignment: "LG", leader_id: 1)
+DreamTeam.create(Name: "BigBads", Banner: "scary_url", Alignment: "NE", leader_id: 3)
+DreamTeam.create(Name: "SNEStle Crunch", Banner: "SNES_logo", Alignment: "TN", leader_id: 24)
+DreamTeam.create(Name: "Bad Boys", Banner: "badboys_logo", Alignment: "CN", leader_id: 49)
+DreamTeam.create(Name: "Femmes Fatales", Banner: "gaga_url", Alignment: "CG", leader_id: 32)
+DreamTeam.create(Name: "Final Fantasy Filtered", Banner: "ff_url", Alignment: "NG", leader_id: 3)
+DreamTeam.create(Name: "Best Bros", Banner: "bro_url", Alignment: "CG", leader_id: 29)
+DreamTeam.create(Name: "Zero Frame Fighters", Banner: "guilty_gear_url", Alignment: "LN", leader_id: 30)
 
 puts "Integrating personas..."
 Persona.create(Name: "Mario", Origin: "Mario", Alignment: "NG", Role: "Bruiser", Image: "mario_url", Leader: true, Power: 399)
@@ -37,7 +37,7 @@ Persona.create(Name: "Estinien", Origin: "Final Fantasy", Alignment: "CN", Role:
 Persona.create(Name: "Deneb", Origin: "Tactics Ogre", Alignment: "TN", Image: "deneb_url", Role: "Support", Leader: true, Power: 350)
 Persona.create(Name: "Fox", Origin: "Starfox", Alignment: "NG", Image: "starfox_url", Role: "Bruiser", Leader: true, Power: 280)
 Persona.create(Name: "Vergil", Origin: "Devil May Cry", Alignment: "LE", Image: "vergil_url", Role: "Bruiser", Leader: false, Power: 280)
-Persona.create(Name: "Solaire", Origin: "Dark Souls", Alignment: "LG", Image: "solaire_url", Role: "Tank", Leader: true, Power: 440)
+Persona.create(Name: "Solaire of Astora", Origin: "Dark Souls", Alignment: "LG", Image: "solaire_url", Role: "Tank", Leader: true, Power: 440)
 Persona.create(Name: "Siegfried", Origin: "Soul Calibur", Alignment: "NG", Image: "siegfried_url", Role: "Tank", Leader: true, Power: 305)
 Persona.create(Name: "Grimgor Ironhide", Origin: "Warhammer", Alignment: "CE", Image: "grimgor_url", Role: "Bruiser", Leader: true, Power: 700)
 Persona.create(Name: "Tyrande Whisperwind", Origin: "Warcraft", Alignment: "LG", Image: "tyrande_url", Role: "Support", Leader: true, Power: 390)
@@ -58,6 +58,8 @@ Persona.create(Name: "Nathan Drake", Origin: "Uncharted", Alignment: "CG", Image
 Persona.create(Name: "Lara Croft", Origin: "Tomb Raider", Alignment: "CG", Image: "lara_url", Role: "Damage", Leader: false, Power: 340)
 Persona.create(Name: "Delita Hyral", Origin: "Final Fantasy", Alignment: "LE", Image: "delita_url", Role: "Hybrid", Leader: true, Power: 404)
 Persona.create(Name: "Andrew Ryan", Origin: "BioShock", Alignment: "LE", Image: "andrewryan_url", Role: "Support", Leader: true, Power: 390)
+Persona.create(Name: "Alucard", Origin: "Castlevania", Alignment: "CN", Image: "alucard_url", Role: "Damage", Leader: false, Power: 455)
+Persona.create(Name: "Earthworm Jim", Origin: "Earthworm Jim", Alignment: "NG", Image: "jim_url", Role: "Bruiser", Leader: true, Power: 430)
 
 
 

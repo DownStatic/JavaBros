@@ -1,6 +1,6 @@
 const DTs_path = 'http://localhost:3000/api/v1/dream_teams'
 const Ps_path = 'http://localhost:3000/api/v1/personas'
-
+let frontTeams
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("%c Word to your mother", "color: blue")
@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let addTeam = false
   addBtn.addEventListener('click', () => {
-    // hide & seek with the form
     addTeam = !addTeam
     if (addTeam) {
       teamForm.style.display = 'block'
@@ -30,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
+  //Getting the personae and putting htem in the form selections...
   fetch(Ps_path).then(res => res.json()).then(json => {
     for(let Ps of json){
       if (Ps.Leader) {
@@ -41,25 +41,46 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
+  //This is the logic for the team creation form
   teamForm.addEventListener('submit', event => {
     event.preventDefault();
     teamForm.style.display = 'none'
     addTeamArea.style.display = 'block'
+    let teamselect = event.target.querySelectorAll('select')
     addTeam = false
+    fetch(DTs_path, {
+      method: "POST",
+      headers: {
+        "Accept": 'application/json',
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "Name":event.target.firstElementChild.value,
+        "Leader":teamselect[0].value,
+        "Member2":teamselect[1].value,
+        "Member3":teamselect[2].value,
+        "Member4":teamselect[3].value,
+        "Member5":teamselect[4].value
+      })
+    }).then(res => res.json()).then(json => {
+      frontTeams = json
+      newteam = frontTeams[frontTeams.length-1]
+      select1.innerHTML += `<option data-id=${newteam.id}>${newteam.Name}</option>`
+      select2.innerHTML += `<option data-id=${newteam.id}>${newteam.Name}</option>`
+    })
   })
 
-
+  //Initial fetch request to load all teams
   fetch(DTs_path).then(res => res.json()).then(json => {
+    //loading the teams into the select bars and assigning functionality...
+    frontTeams = json
     for(let DT of json){
       select1.innerHTML += `<option data-id=${DT.id}>${DT.Name}</option>`
       select2.innerHTML += `<option data-id=${DT.id}>${DT.Name}</option>`
     }
 
     select1.addEventListener("change", (event) =>{
-      // console.log(event.target.value)
-      let selectedTeam = json.find((t) => t.Name == event.target.value)
-      // console.log(selectedTeam)
-      // console.log(div1)
+      let selectedTeam = frontTeams.find((t) => t.Name == event.target.value)
       div1.innerHTML = renderDT(selectedTeam)
       for(let P of selectedTeam.personas){
         document.getElementById(`Team${selectedTeam.id}`).innerHTML += renderPersona(P)
@@ -67,26 +88,25 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     select2.addEventListener("change", (event) =>{
-      // console.log(event.target.value)
-      let selectedTeam = json.find((t) => t.Name == event.target.value)
-      // console.log(selectedTeam)
-      // console.log(div2)
+      let selectedTeam = frontTeams.find((t) => t.Name == event.target.value)
       div2.innerHTML = renderDT(selectedTeam)
       for(let P of selectedTeam.personas){
         div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
       }
     })
 
+    //Modal creation and logic
     document.addEventListener("click", event => {
       if(event.target.dataset.id){
         modal.style.display = "block";
         // console.log(roster)
-        let selectedTeam = json.find((t) => t.id == event.target.dataset.id)
+        let selectedTeam = frontTeams.find((t) => t.id == event.target.dataset.id)
         // console.log(selectedTeam)
         roster.innerHTML = `<h3>${selectedTeam.Name}</h3>`
         for(let P of selectedTeam.personas){
           roster.innerHTML += renderPersona(P)
         }
+        roster.innerHTML += `<li>Expected Power: ${selectedTeam.overall_power}</li>`
       }
 
       if(event.target.id === "Personae") {
@@ -97,12 +117,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
+//functions for rendering teams and personae
 const renderDT = function(DT){
   return `
   <ul id=Head${DT.id}>
     <li>${DT.Name}
       <ol id=Team${DT.id}></ol>
     </li>
+    <li>Expected Power: ${DT.overall_power}</li>
   </ul>
   <button data-id=${DT.id}>Edit ${DT.Name}</button>`
 }

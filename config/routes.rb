@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :dream_teams, only: [:index, :show]
+      resources :dream_teams, only: [:index, :show, :create, :update, :destroy]
       resources :personas, only: [:index, :show]
     end
   end
