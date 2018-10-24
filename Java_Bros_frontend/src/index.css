@@ -62,10 +62,11 @@ ol {
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    top: 0%;
+    margin: 10% auto; /* 15% from the top and centered */
     padding: 5%;
-    border: 1px solid #888;
-    height: 60%;
+    border: 3px solid #888;
+    height: 75%;
     width: 80%;
 }
 

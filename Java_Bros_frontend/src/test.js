@@ -94,19 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
           div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
         }
       }
-      if(div1.innerHTML && div2.innerHTML){
-        let team1_id = div1.lastElementChild.dataset.id
-        let team2_id = div2.lastElementChild.dataset.id
-        let team1 = frontTeams.find(t => t.id == team1_id)
-        let team2 = frontTeams.find(t => t.id == team2_id)
-        console.log(`${team1.Name} versus ${team2.Name}`)
-        matchup.innerHTML = `
-        <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
-        <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
-        <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
-        <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
-        `
-      }
+      renderMatchup(div1, div2)
     })
 
     select2.addEventListener("change", (event) =>{
@@ -120,19 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
           div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
         }
       }
-      if(div1.innerHTML && div2.innerHTML){
-        let team1_id = div1.lastElementChild.dataset.id
-        let team2_id = div2.lastElementChild.dataset.id
-        let team1 = frontTeams.find(t => t.id == team1_id)
-        let team2 = frontTeams.find(t => t.id == team2_id)
-        console.log(`${team1.Name} versus ${team2.Name}`)
-        matchup.innerHTML = `
-        <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
-        <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
-        <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
-        <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
-        `
-      }
+      renderMatchup(div1, div2)
     })
 
     //Mouse clicks logic
@@ -140,9 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
       //Modal show logic
       if(event.target.dataset.id){
         modal.style.display = "block";
-        // console.log(roster)
         let selectedTeam = frontTeams.find((t) => t.id == event.target.dataset.id)
-        // console.log(selectedTeam)
         roster.innerHTML = `<h3>${selectedTeam.Name}</h3>`
         for(let P of selectedTeam.personas){
           if(selectedTeam.leader.id == P.id){
@@ -198,3 +172,17 @@ const renderPersona = function(P){
   <img src="${solaire}" height="50">
   `
 }
+const renderMatchup = function(div1, div2){
+  if(div1.innerHTML && div2.innerHTML){
+    let team1_id = div1.lastElementChild.dataset.id
+    let team2_id = div2.lastElementChild.dataset.id
+    let team1 = frontTeams.find(t => t.id == team1_id)
+    let team2 = frontTeams.find(t => t.id == team2_id)
+    console.log(`${team1.Name} versus ${team2.Name}`)
+    matchup.innerHTML = `
+    <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
+    <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
+    <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
+    <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
+    `
+  }}
