@@ -29,6 +29,10 @@ button {
   border: 5px black;
 }
 
+img {
+  background: none;
+}
+
 .teamform {
   width: 35%;
   height: auto;
@@ -38,6 +42,7 @@ button {
 .avatar {
   transform: scale(1);
   transition: all .3s ease-in-out;
+  background: none;
 }
 
 .avatar:hover {
