@@ -173,8 +173,19 @@ document.addEventListener("DOMContentLoaded", () => {
         select1.value = selectedTeam.Name
         if(div1.style["left"]=="0%"){
           div1.style.setProperty("opacity","0")
-          setTimeout(()=>{},1500)
+          setTimeout(()=>{
+            div1.innerHTML = renderDT(selectedTeam)
+            for(let P of selectedTeam.personas){
+              if(selectedTeam.leader.id == P.id){
+                div1.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
+              }
+              else{
+                div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+              }
+            }
+          },1500)
         }
+        else {
         div1.innerHTML = renderDT(selectedTeam)
         for(let P of selectedTeam.personas){
           if(selectedTeam.leader.id == P.id){
@@ -184,6 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
             div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
           }
         }
+      }
         if(div1.style["left"]=="0%"){
           setTimeout(()=>{div1.style.setProperty("opacity","1")},1500)
         }
@@ -198,6 +210,21 @@ document.addEventListener("DOMContentLoaded", () => {
         let ranteam2 = frontTeams[Math.floor(Math.random() * frontTeams.length)]
         let selectedTeam = ranteam2
         select2.value = selectedTeam.Name
+        if(div2.style["right"]=="0%"){
+          div2.style.setProperty("opacity","0")
+          setTimeout(()=>{
+            div2.innerHTML = renderDT(selectedTeam)
+            for(let P of selectedTeam.personas){
+              if(selectedTeam.leader.id == P.id){
+                div2.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
+              }
+              else{
+                div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+              }
+            }
+          },1500)
+        }
+        else {
         div2.innerHTML = renderDT(selectedTeam)
         for(let P of selectedTeam.personas){
           if(selectedTeam.leader.id == P.id){
@@ -207,9 +234,16 @@ document.addEventListener("DOMContentLoaded", () => {
             div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
           }
         }
-        div2.style.setProperty("right","0%")
-        renderMatchup(div1, div2)
       }
+        if(div2.style["right"]=="0%"){
+          setTimeout(()=>{div2.style.setProperty("opacity","1")},1500)
+        }
+        else{
+          div2.style.setProperty("right","0%")
+        }
+      renderMatchup(div1, div2)
+      }
+
       //RANDOMIZE Persona Button
       if(event.target === randomPersona) {
 

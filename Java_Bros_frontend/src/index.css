@@ -24,9 +24,10 @@ h3 {
 }
 
 button {
-  background: none;
+  background: #ccd2e0;
   border-style: solid;
-  border: 5px black;
+  outline: 5px black;
+  border-radius: 4px;
 }
 
 img {

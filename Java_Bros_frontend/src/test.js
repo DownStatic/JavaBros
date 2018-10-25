@@ -89,33 +89,14 @@ document.addEventListener("DOMContentLoaded", () => {
     //load teams on select and create matchup
     select1.addEventListener("change", (event) =>{
       let selectedTeam = frontTeams.find((t) => t.Name == event.target.value)
-      div1.innerHTML = renderDT(selectedTeam)
-      for(let P of selectedTeam.personas){
-        if(selectedTeam.leader.id == P.id){
-          div1.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
-        }
-        else{
-          div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
-        }
-      }
-      console.log(div1.style.left)
-      div1.style.setProperty("left","0%")
-      renderMatchup(div1, div2)
+      switchTeam(div1, "left", selectedTeam)
+      setTimeout(() => renderMatchup(div1, div2), 1800)
     })
 
     select2.addEventListener("change", (event) =>{
       let selectedTeam = frontTeams.find((t) => t.Name == event.target.value)
-      div2.innerHTML = renderDT(selectedTeam)
-      for(let P of selectedTeam.personas){
-        if(selectedTeam.leader.id == P.id){
-          div2.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
-        }
-        else{
-          div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
-        }
-      }
-      div2.style.setProperty("right","0%")
-      renderMatchup(div1, div2)
+      switchTeam(div2, "right", selectedTeam)
+      setTimeout(() => renderMatchup(div1, div2), 1800)
     })
 
     //Mouse clicks logic
@@ -171,38 +152,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let ranteam1 = frontTeams[Math.floor(Math.random() * frontTeams.length)]
         let selectedTeam = ranteam1
         select1.value = selectedTeam.Name
-        if(div1.style["left"]=="0%"){
-          div1.style.setProperty("opacity","0")
-          setTimeout(()=>{
-            div1.innerHTML = renderDT(selectedTeam)
-            for(let P of selectedTeam.personas){
-              if(selectedTeam.leader.id == P.id){
-                div1.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
-              }
-              else{
-                div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
-              }
-            }
-          },1500)
-        }
-        else {
-        div1.innerHTML = renderDT(selectedTeam)
-        for(let P of selectedTeam.personas){
-          if(selectedTeam.leader.id == P.id){
-            div1.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
-          }
-          else{
-            div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
-          }
-        }
-      }
-        if(div1.style["left"]=="0%"){
-          setTimeout(()=>{div1.style.setProperty("opacity","1")},1500)
-        }
-        else{
-          div1.style.setProperty("left","0%")
-        }
-      renderMatchup(div1, div2)
+        switchTeam(div1, "left", selectedTeam)
+        setTimeout(() => renderMatchup(div1, div2), 1800)
       }
 
       //Random button 2
@@ -210,38 +161,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let ranteam2 = frontTeams[Math.floor(Math.random() * frontTeams.length)]
         let selectedTeam = ranteam2
         select2.value = selectedTeam.Name
-        if(div2.style["right"]=="0%"){
-          div2.style.setProperty("opacity","0")
-          setTimeout(()=>{
-            div2.innerHTML = renderDT(selectedTeam)
-            for(let P of selectedTeam.personas){
-              if(selectedTeam.leader.id == P.id){
-                div2.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
-              }
-              else{
-                div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
-              }
-            }
-          },1500)
-        }
-        else {
-        div2.innerHTML = renderDT(selectedTeam)
-        for(let P of selectedTeam.personas){
-          if(selectedTeam.leader.id == P.id){
-            div2.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
-          }
-          else{
-            div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
-          }
-        }
-      }
-        if(div2.style["right"]=="0%"){
-          setTimeout(()=>{div2.style.setProperty("opacity","1")},1500)
-        }
-        else{
-          div2.style.setProperty("right","0%")
-        }
-      renderMatchup(div1, div2)
+        switchTeam(div2, "right", selectedTeam)
+        setTimeout(() => renderMatchup(div1, div2), 1800)
       }
 
       //RANDOMIZE Persona Button
@@ -283,3 +204,37 @@ const renderMatchup = function(div1, div2){
     <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
     `
   }}
+
+  const switchTeam = function(teamdiv, side, newTeam){
+    if(teamdiv.style[side]=="0%"){
+      teamdiv.style.setProperty("opacity","0")
+      setTimeout(()=>{
+        teamdiv.innerHTML = renderDT(newTeam)
+        for(let P of newTeam.personas){
+          if(newTeam.leader.id == P.id){
+            teamdiv.querySelector(`#Team${newTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
+          }
+          else{
+            teamdiv.querySelector(`#Team${newTeam.id}`).innerHTML += renderPersona(P)
+          }
+        }
+      },1500)
+    }
+    else {
+    teamdiv.innerHTML = renderDT(newTeam)
+    for(let P of newTeam.personas){
+      if(newTeam.leader.id == P.id){
+        teamdiv.querySelector(`#Team${newTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
+      }
+      else{
+        teamdiv.querySelector(`#Team${newTeam.id}`).innerHTML += renderPersona(P)
+      }
+    }
+  }
+    if(teamdiv.style[side]=="0%"){
+      setTimeout(()=>{teamdiv.style.setProperty("opacity","1")},1500)
+    }
+    else{
+      teamdiv.style.setProperty(side,"0%")
+    }
+  }
