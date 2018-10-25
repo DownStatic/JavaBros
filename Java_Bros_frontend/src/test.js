@@ -1,7 +1,7 @@
 const DTs_path = 'http://localhost:3000/api/v1/dream_teams'
 const Ps_path = 'http://localhost:3000/api/v1/personas'
-const solaire = 'https://pre00.deviantart.net/537a/th/pre/i/2017/009/6/8/solaire_of_astora_by_emortal982-d8sal2b.jpg'
 let frontTeams
+let frontPersonae
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("%c Word to your mother", "color: blue")
@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Getting the personae and putting them in the form selections...
   fetch(Ps_path).then(res => res.json()).then(json => {
+    frontPersonae = json
     for(let Ps of json){
       if (Ps.Leader) {
         leaderSelect.innerHTML += `<option>${Ps.Name}</option>`
@@ -97,6 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
           div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
         }
       }
+      console.log(div1.style.left)
+      div1.style.setProperty("left","0%")
       renderMatchup(div1, div2)
     })
 
@@ -111,12 +114,13 @@ document.addEventListener("DOMContentLoaded", () => {
           div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
         }
       }
+      div2.style.setProperty("right","0%")
       renderMatchup(div1, div2)
     })
 
     //Mouse clicks logic
     document.addEventListener("click", event => {
-      //Modal show logic
+      //Modal show logic for teams
       if(event.target.dataset.id){
         modal.style.display = "block";
         let selectedTeam = frontTeams.find((t) => t.id == event.target.dataset.id)
@@ -130,6 +134,16 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
         roster.innerHTML += `<li>Expected Power: ${selectedTeam.overall_power}</li>`
+      }
+
+      if(event.target.dataset.pid){
+        modal.style.display = "block";
+        let selectedPersona = frontPersonae.find(p => p.id == Number(event.target.dataset.pid))
+        roster.innerHTML = `<h3>${selectedPersona.Name}</h3>`
+        roster.innerHTML += `<p>${selectedPersona.typeclass}<br>Level ${selectedPersona.Power}<br>Team Role: ${selectedPersona.Role}</p>`
+        roster.innerHTML += `<p>Gameverse: ${selectedPersona.Origin}`
+        roster.innerHTML += `<img data-pid=${selectedPersona.id} src="${selectedPersona.Image}" height="450">`
+        roster.innerHTML = `<center>${roster.innerHTML}</center>`
       }
 
       //Modal hide logic
@@ -157,6 +171,21 @@ document.addEventListener("DOMContentLoaded", () => {
         let ranteam1 = frontTeams[Math.floor(Math.random() * frontTeams.length)]
         let selectedTeam = ranteam1
         select1.value = selectedTeam.Name
+        if(div1.style["left"]=="0%"){
+          div1.style.setProperty("opacity","0")
+          setTimeout(()=>{
+            div1.innerHTML = renderDT(selectedTeam)
+            for(let P of selectedTeam.personas){
+              if(selectedTeam.leader.id == P.id){
+                div1.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
+              }
+              else{
+                div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+              }
+            }
+          },1500)
+        }
+        else {
         div1.innerHTML = renderDT(selectedTeam)
         for(let P of selectedTeam.personas){
           if(selectedTeam.leader.id == P.id){
@@ -166,7 +195,13 @@ document.addEventListener("DOMContentLoaded", () => {
             div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
           }
         }
-
+      }
+        if(div1.style["left"]=="0%"){
+          setTimeout(()=>{div1.style.setProperty("opacity","1")},1500)
+        }
+        else{
+          div1.style.setProperty("left","0%")
+        }
       renderMatchup(div1, div2)
       }
 
@@ -175,6 +210,21 @@ document.addEventListener("DOMContentLoaded", () => {
         let ranteam2 = frontTeams[Math.floor(Math.random() * frontTeams.length)]
         let selectedTeam = ranteam2
         select2.value = selectedTeam.Name
+        if(div2.style["right"]=="0%"){
+          div2.style.setProperty("opacity","0")
+          setTimeout(()=>{
+            div2.innerHTML = renderDT(selectedTeam)
+            for(let P of selectedTeam.personas){
+              if(selectedTeam.leader.id == P.id){
+                div2.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
+              }
+              else{
+                div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+              }
+            }
+          },1500)
+        }
+        else {
         div2.innerHTML = renderDT(selectedTeam)
         for(let P of selectedTeam.personas){
           if(selectedTeam.leader.id == P.id){
@@ -184,9 +234,16 @@ document.addEventListener("DOMContentLoaded", () => {
             div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
           }
         }
-
-        renderMatchup(div1, div2)
       }
+        if(div2.style["right"]=="0%"){
+          setTimeout(()=>{div2.style.setProperty("opacity","1")},1500)
+        }
+        else{
+          div2.style.setProperty("right","0%")
+        }
+      renderMatchup(div1, div2)
+      }
+
       //RANDOMIZE Persona Button
       if(event.target === randomPersona) {
 
@@ -199,24 +256,23 @@ document.addEventListener("DOMContentLoaded", () => {
 const renderDT = function(DT){
   return `
   <ul id=Head${DT.id}>
-    <li>${DT.Name}
-      <ol id=Team${DT.id}></ol>
-    </li>
+    <h3>${DT.Name}</h3>
+    <ol id=Team${DT.id}></ol>
     <li>Expected Power: ${DT.overall_power}</li>
   </ul>
-  <button data-id=${DT.id}>Edit ${DT.Name}</button>`
+  <center><button data-id=${DT.id}>Edit ${DT.Name}</button></center>`
 }
 
 const renderPersona = function(P){
   return `
-  <li>${P.Name}</li>
-  <img src="${P.Image}" height="50">
+  <li>${P.Name}<br>${P.typeclass}<br>Level ${P.Power}</li>
+  <img class="avatar" data-pid=${P.id} src="${P.Image}" height="50">
   `
 }
 const renderMatchup = function(div1, div2){
   if(div1.innerHTML && div2.innerHTML){
-    let team1_id = div1.lastElementChild.dataset.id
-    let team2_id = div2.lastElementChild.dataset.id
+    let team1_id = div1.lastElementChild.firstElementChild.dataset.id
+    let team2_id = div2.lastElementChild.firstElementChild.dataset.id
     let team1 = frontTeams.find(t => t.id == team1_id)
     let team2 = frontTeams.find(t => t.id == team2_id)
     console.log(`${team1.Name} versus ${team2.Name}`)

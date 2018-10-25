@@ -1,6 +1,7 @@
 const DTs_path = 'http://localhost:3000/api/v1/dream_teams'
 const Ps_path = 'http://localhost:3000/api/v1/personas'
 let frontTeams
+let frontPersonae
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("%c Word to your mother", "color: blue")
@@ -15,13 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const personaeSelect =document.getElementsByClassName("Persona-select")
   const select1 = document.getElementById('team_1_select')
   const select2 = document.getElementById('team_2_select')
+  const randomTeam1 = document.getElementById('random-btn1')
+  const randomTeam2 = document.getElementById("random-btn2")
+  const randomPersona = document.getElementById("random-all-personae")
   const div1 = document.getElementById('T1')
   const div2 = document.getElementById('T2')
   const matchup = document.getElementById('matchup')
   const modal = document.getElementById('Personae')
   const roster = modal.firstElementChild
-
-
 
   //Form toggle
   let addTeam = false
@@ -35,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Getting the personae and putting them in the form selections...
   fetch(Ps_path).then(res => res.json()).then(json => {
+    frontPersonae = json
     for(let Ps of json){
       if (Ps.Leader) {
         leaderSelect.innerHTML += `<option>${Ps.Name}</option>`
@@ -95,19 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
           div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
         }
       }
-      if(div1.innerHTML && div2.innerHTML){
-        let team1_id = div1.lastElementChild.dataset.id
-        let team2_id = div2.lastElementChild.dataset.id
-        let team1 = frontTeams.find(t => t.id == team1_id)
-        let team2 = frontTeams.find(t => t.id == team2_id)
-        console.log(`${team1.Name} versus ${team2.Name}`)
-        matchup.innerHTML = `
-        <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
-        <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
-        <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
-        <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
-        `
-      }
+      console.log(div1.style.left)
+      div1.style.setProperty("left","0%")
+      renderMatchup(div1, div2)
     })
 
     select2.addEventListener("change", (event) =>{
@@ -121,34 +114,36 @@ document.addEventListener("DOMContentLoaded", () => {
           div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
         }
       }
-      if(div1.innerHTML && div2.innerHTML){
-        let team1_id = div1.lastElementChild.dataset.id
-        let team2_id = div2.lastElementChild.dataset.id
-        let team1 = frontTeams.find(t => t.id == team1_id)
-        let team2 = frontTeams.find(t => t.id == team2_id)
-        console.log(`${team1.Name} versus ${team2.Name}`)
-        matchup.innerHTML = `
-        <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
-        <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
-        <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
-        <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
-        `
-      }
+      div2.style.setProperty("right","0%")
+      renderMatchup(div1, div2)
     })
 
     //Mouse clicks logic
     document.addEventListener("click", event => {
-      //Modal show logic
+      //Modal show logic for teams
       if(event.target.dataset.id){
         modal.style.display = "block";
-        // console.log(roster)
         let selectedTeam = frontTeams.find((t) => t.id == event.target.dataset.id)
-        // console.log(selectedTeam)
         roster.innerHTML = `<h3>${selectedTeam.Name}</h3>`
         for(let P of selectedTeam.personas){
-          roster.innerHTML += renderPersona(P)
+          if(selectedTeam.leader.id == P.id){
+            roster.firstElementChild.insertAdjacentHTML('afterend',`<span class="list-leader">${renderPersona(P)}</span>`)
+          }
+          else{
+            roster.innerHTML += renderPersona(P)
+          }
         }
         roster.innerHTML += `<li>Expected Power: ${selectedTeam.overall_power}</li>`
+      }
+
+      if(event.target.dataset.pid){
+        modal.style.display = "block";
+        let selectedPersona = frontPersonae.find(p => p.id == Number(event.target.dataset.pid))
+        roster.innerHTML = `<h3>${selectedPersona.Name}</h3>`
+        roster.innerHTML += `<p>${selectedPersona.typeclass}<br>Level ${selectedPersona.Power}<br>Team Role: ${selectedPersona.Role}</p>`
+        roster.innerHTML += `<p>Gameverse: ${selectedPersona.Origin}`
+        roster.innerHTML += `<img data-pid=${selectedPersona.id} src="${selectedPersona.Image}" height="450">`
+        roster.innerHTML = `<center>${roster.innerHTML}</center>`
       }
 
       //Modal hide logic
@@ -170,23 +165,87 @@ document.addEventListener("DOMContentLoaded", () => {
           alert(`${team1} has triumphed`)
         }
       }
+
+      // Random button 1
+      if(event.target === randomTeam1) {
+        let ranteam1 = frontTeams[Math.floor(Math.random() * frontTeams.length)]
+        let selectedTeam = ranteam1
+        select1.value = selectedTeam.Name
+        if(div1.style["left"]=="0%"){
+          div1.style.setProperty("opacity","0")
+          setTimeout(()=>{},1500)
+        }
+        div1.innerHTML = renderDT(selectedTeam)
+        for(let P of selectedTeam.personas){
+          if(selectedTeam.leader.id == P.id){
+            div1.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
+          }
+          else{
+            div1.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+          }
+        }
+        if(div1.style["left"]=="0%"){
+          setTimeout(()=>{div1.style.setProperty("opacity","1")},1500)
+        }
+        else{
+          div1.style.setProperty("left","0%")
+        }
+      renderMatchup(div1, div2)
+      }
+
+      //Random button 2
+      if(event.target === randomTeam2) {
+        let ranteam2 = frontTeams[Math.floor(Math.random() * frontTeams.length)]
+        let selectedTeam = ranteam2
+        select2.value = selectedTeam.Name
+        div2.innerHTML = renderDT(selectedTeam)
+        for(let P of selectedTeam.personas){
+          if(selectedTeam.leader.id == P.id){
+            div2.querySelector(`#Team${selectedTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
+          }
+          else{
+            div2.querySelector(`#Team${selectedTeam.id}`).innerHTML += renderPersona(P)
+          }
+        }
+        div2.style.setProperty("right","0%")
+        renderMatchup(div1, div2)
+      }
+      //RANDOMIZE Persona Button
+      if(event.target === randomPersona) {
+
+      }
     })
   })
-
 })
 
 //functions for rendering teams and personae
 const renderDT = function(DT){
   return `
   <ul id=Head${DT.id}>
-    <li>${DT.Name}
-      <ol id=Team${DT.id}></ol>
-    </li>
+    <h3>${DT.Name}</h3>
+    <ol id=Team${DT.id}></ol>
     <li>Expected Power: ${DT.overall_power}</li>
   </ul>
-  <button data-id=${DT.id}>Edit ${DT.Name}</button>`
+  <center><button data-id=${DT.id}>Edit ${DT.Name}</button></center>`
 }
 
 const renderPersona = function(P){
-  return `<li>${P.Name}</li>`
+  return `
+  <li>${P.Name}<br>${P.typeclass}<br>Level ${P.Power}</li>
+  <img class="avatar" data-pid=${P.id} src="${P.Image}" height="50">
+  `
 }
+const renderMatchup = function(div1, div2){
+  if(div1.innerHTML && div2.innerHTML){
+    let team1_id = div1.lastElementChild.firstElementChild.dataset.id
+    let team2_id = div2.lastElementChild.firstElementChild.dataset.id
+    let team1 = frontTeams.find(t => t.id == team1_id)
+    let team2 = frontTeams.find(t => t.id == team2_id)
+    console.log(`${team1.Name} versus ${team2.Name}`)
+    matchup.innerHTML = `
+    <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
+    <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
+    <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
+    <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
+    `
+  }}

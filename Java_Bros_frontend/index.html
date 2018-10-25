@@ -2,8 +2,23 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+
+    <!-- Semantic UI components below -->
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+
+    <!-- Material UI components below -->
+    <!-- <script src="https://unpkg.com/@material-ui/core/umd/material-ui.production.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">  -->
+    
     <link rel="stylesheet" href="./src/index.css">
-    <title></title>
   </head>
 
   <div>
@@ -22,14 +37,13 @@
             <button type="button" id="random-btn2">Random Team 2</button>
           </center>
         </div>
-      <div class="teamform">
+      <div class="teamform"><center>
         <form class="create-form">
-          Team Name<input type="text" name="" placeholder="team name">
-          <button type="button" id="random-all-personae">RANDOMIZE ALL</button>
+          Name<input type="text" name="" placeholder="team name">
           <label>Team Leader</label>
           <select id="Leader-select">
             <option disabled selected value style="display:none"></option>
-          </select>
+          </select><br>
           <label>Slot#2</label>
           <select class ="Persona-select">
             <option disabled selected value style="display:none"></option>
@@ -37,7 +51,7 @@
           <label>Slot#3</label>
           <select class ="Persona-select">
             <option disabled selected value style="display:none"></option>
-          </select>
+          </select><br>
           <label>Slot#4</label>
           <select class ="Persona-select">
             <option disabled selected value style="display:none"></option>
@@ -45,9 +59,10 @@
           <label>Slot#5</label>
           <select class ="Persona-select">
             <option disabled selected value style="display:none"></option>
-          </select>
+          </select><br>
+          <button type="button" id="random-all-personae">RANDOMIZE ALL</button>
           <input type="submit">
-        </form>
+        </form></center>
       </div>
     </div>
     <br>
@@ -58,9 +73,9 @@
     <div id="T1" class="left-sidebar"></div>
     <div id="T2" class="right-sidebar"></div>
     <div id="matchup"></div>
-  <div id="Personae" class="modal">
-    <div class="modal-content"></div>
-  </div>
+    <div id="Personae" class="modal">
+      <div class="modal-content"></div>
+    </div>
 </body>
   <!-- <script type="text/javascript", src="./src/index.js"></script> -->
   <script type="text/javascript", src="./src/test.js"></script>
