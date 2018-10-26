@@ -63,6 +63,23 @@ img {
   justify-content: space-around;
 }
 
+.fightgif {
+  width: auto;
+  max-width: 90%;
+}
+
+.victoryleader {
+  width: auto;
+  height: auto;
+  max-width: 80%;
+  max-height: 30%;
+}
+
+.vimage {
+  max-height: 100%;
+  max-width: 100%;
+}
+
 .teamform {
   width: 35%;
   height: auto;

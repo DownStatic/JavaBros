@@ -1,9 +1,10 @@
 
 const DTs_path = 'http://localhost:3000/api/v1/dream_teams'
 const Ps_path = 'http://localhost:3000/api/v1/personas'
+const gifs = [["http://www.gamesfoda.net/wp-content/uploads/2013/05/guiltygear_holyshit_zps4541e85c.gif",4850],["https://i.kinja-img.com/gawker-media/image/upload/t_original/wnov10iugz7lmarrxurw.gif",2700],["https://66.media.tumblr.com/7bfa20230f06120beeedd6a2f5e7da93/tumblr_opam6ltGFp1r7sijxo1_500.gif",2800],["https://66.media.tumblr.com/0f3ce98faf205b5f1cee0fcfa6203998/tumblr_p4k89myD5L1uq6svio1_540.gif",3200],["https://i.imgur.com/gWqobtj.gif",3500],["https://66.media.tumblr.com/9fe4a825ea240dd070a4709eabaaf1be/tumblr_nnl30uwfkf1r7sijxo1_400.gif",3000],["https://66.media.tumblr.com/9fe4a825ea240dd070a4709eabaaf1be/tumblr_nnl30uwfkf1r7sijxo1_400.gif",3000],["https://i.makeagif.com/media/2-04-2015/ojkKBy.gif",8000],["https://orig00.deviantart.net/ed39/f/2011/228/4/2/bb_shadow__s_astral_finish_by_nightmarezenuki-d46ufju.gif",5200],["https://vignette.wikia.nocookie.net/dbxfanon/images/7/7a/Susano%27o_Astral_Heat.gif/revision/latest?cb=20180213191522",4000],["https://thumbs.gfycat.com/UnsteadyDarkIberianmidwifetoad-size_restricted.gif",8000],["http://images6.fanpop.com/image/photos/37700000/Mario-and-Charizard-clash-Gif-super-mario-bros-37744930-371-209.gif",4000],["https://i.kym-cdn.com/photos/images/original/000/768/731/710.gif",5800],["https://66.media.tumblr.com/596cde813346dd39047015255bc2c450/tumblr_n2af5uURYz1r7epm9o1_400.gif",3500],["https://i.redd.it/480pt79x1i5z.gif",4200],["https://78.media.tumblr.com/tumblr_m5lgugMMOo1rrlrnjo1_500.gif",2250],["https://thumbs.gfycat.com/SociableMessyIndusriverdolphin-size_restricted.gif",8500],["http://www.gogglebob.com/pics/xs/ep3/1038.gif",7500],["https://thumbs.gfycat.com/PoliticalBeneficialBergerpicard-small.gif",2600]]
 let frontTeams
 let frontPersonae
-
+// ,["https://thumbs.gfycat.com/UnsteadyDarkIberianmidwifetoad-size_restricted.gif",8000],["http://i.imgur.com/93T3stl.gifv",2500],["http://images6.fanpop.com/image/photos/37700000/Mario-and-Charizard-clash-Gif-super-mario-bros-37744930-371-209.gif",4000],["https://i.kym-cdn.com/photos/images/original/000/768/731/710.gif",5800],["https://66.media.tumblr.com/596cde813346dd39047015255bc2c450/tumblr_n2af5uURYz1r7epm9o1_400.gif",3500],["https://i.redd.it/480pt79x1i5z.gif",5000],["https://78.media.tumblr.com/tumblr_m5lgugMMOo1rrlrnjo1_500.gif",2500],["https://thumbs.gfycat.com/SociableMessyIndusriverdolphin-size_restricted.gif",8500],["http://www.gogglebob.com/pics/xs/ep3/1038.gif",7500],["https://thumbs.gfycat.com/PoliticalBeneficialBergerpicard-small.gif",3000]
 document.addEventListener("DOMContentLoaded", () => {
   console.log("%c Word to your mother", "color: blue")
 
@@ -161,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <center><h3>${selectedPersona.Name}</h3>
           <p>${selectedPersona.typeclass}<br>Level ${selectedPersona.Power}<br>Team Role: ${selectedPersona.Role}</p>
           <p>Gameverse: ${selectedPersona.Origin}</p>
-          <img data-pid=${selectedPersona.id} src="${selectedPersona.Image}" height="450"></center>`
+          <img class="indpersona" data-pid=${selectedPersona.id} src="${selectedPersona.Image}" height="450"></center>`
       }
 
       //Modal hide logic
@@ -169,19 +170,26 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "none";
       }
 
+      //Team Form hide logic
+      if(event.target.id === "hideform"){
+        event.preventDefault()
+        teamForm.style.display = 'none'
+        addTeamArea.style.display = 'block'
+      }
+
       //Fight button!
       if(event.target.className === "fight!"){
-        console.log("This gon' be a good one")
         let total = Number(event.target.dataset.team1power) + Number(event.target.dataset.team2power)
         let victory = Math.random()*total
         let team1 = select1.value
         let team2 = select2.value
         if(victory > Number(event.target.dataset.team1power)){
-          alert(`${team2} has triumphed!`)
+          victor = frontTeams.find(t => t.Name == team2)
         }
         else{
-          alert(`${team1} has triumphed`)
+          victor = frontTeams.find(t => t.Name == team1)
         }
+        modalgif(modal,roster,victor)
       }
 
       // Random button 1
@@ -202,15 +210,22 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => renderMatchup(div1, div2), 1800)
       }
 
-      //RANDOMIZE Persona Button
-      if(event.target === randomPersona) {
-
-      }
     })
   })
 })
 
 //functions for rendering teams and personae
+const modalgif = function(modal, roster, victor) {
+  let sample = Math.floor(Math.random()*gifs.length)
+  console.log(gifs[sample])
+  modal.style.display = "block"
+  roster.width = "auto"
+  roster.innerHTML = `<center><img src=${gifs[sample][0]} class="fightgif"></center>`
+  setTimeout(() => {
+    roster.innerHTML = `<center><h1>${victor.Name} victory!</h1><br>
+    <div class="victoryleader"><img class="vimage" src=${victor.leader.Image}></div></center>`}, gifs[sample][1])
+}
+
 const renderDT = function(DT){
   return `
   <ul id=Head${DT.id}>
