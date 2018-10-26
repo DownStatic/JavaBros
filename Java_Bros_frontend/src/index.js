@@ -1,3 +1,4 @@
+
 const DTs_path = 'http://localhost:3000/api/v1/dream_teams'
 const Ps_path = 'http://localhost:3000/api/v1/personas'
 let frontTeams
@@ -117,10 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
         roster.innerHTML = `<h3>${selectedTeam.Name}</h3>`
         for(let P of selectedTeam.personas){
           if(selectedTeam.leader.id == P.id){
-            roster.firstElementChild.insertAdjacentHTML('afterend',`<span class="list-leader">${renderPersona(P)}</span>`)
+            roster.firstElementChild.insertAdjacentHTML('afterend',`<span class="list-leader">${renderTeamPersona(P)}</span>`)
           }
           else{
-            roster.innerHTML += renderPersona(P)
+            roster.innerHTML += renderTeamPersona(P)
           }
         }
         roster.innerHTML += `<li>Expected Power: ${selectedTeam.overall_power}</li>
@@ -222,10 +223,23 @@ const renderDT = function(DT){
 
 const renderPersona = function(P){
   return `
-  <li>${P.Name}<br>${P.typeclass}<br>Level ${P.Power}</li>
+  <span class="listpersona">
   <img class="avatar" data-pid=${P.id} src="${P.Image}" height="50">
+  <p class="personastats">${P.Name}<br>${P.typeclass}<br>Level ${P.Power}</p>
+  </span>
   `
 }
+
+const renderTeamPersona = function(P){
+  return `
+  <span class="modallistpersona">
+  <img class="avatar" data-pid=${P.id} src="${P.Image}" height="50">
+  <p class="personastats">${P.Name}<br>${P.typeclass}<br>Level ${P.Power}</p>
+  <p>Team Role:<br>${P.Role}</p>
+  </span>
+  `
+}
+
 const renderMatchup = function(div1, div2){
   if(div1.innerHTML && div2.innerHTML){
     let team1_id = div1.lastElementChild.firstElementChild.dataset.id

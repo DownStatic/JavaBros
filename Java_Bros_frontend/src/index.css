@@ -43,13 +43,22 @@ img {
   background: none;
 }
 
+.personaname {
+  text-decoration: double underline;
+}
+
 .personastats {
   text-align: left;
   word-wrap: normal;
-  width: 150px;
+  width: 120px;
 }
 
 .listpersona {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modallistpersona {
   display: flex;
   justify-content: space-around;
 }
@@ -65,6 +74,12 @@ img {
   transition: all .3s ease-in-out;
   background: none;
   border-radius: 6px;
+}
+
+.indpersona {
+  background: none;
+  border-radius: 6px;
+  border: 2px solid black;
 }
 
 .avatar:hover {
