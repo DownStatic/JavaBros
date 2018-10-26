@@ -51,30 +51,39 @@ document.addEventListener("DOMContentLoaded", () => {
   //This is the logic for the team creation form submission
   teamForm.addEventListener('submit', event => {
     event.preventDefault();
-    teamForm.style.display = 'none'
-    addTeamArea.style.display = 'block'
-    let teamselect = event.target.querySelectorAll('select')
-    addTeam = false
-    fetch(DTs_path, {
-      method: "POST",
-      headers: {
-        "Accept": 'application/json',
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        "Name":event.target.firstElementChild.value,
-        "Leader":teamselect[0].value,
-        "Member2":teamselect[1].value,
-        "Member3":teamselect[2].value,
-        "Member4":teamselect[3].value,
-        "Member5":teamselect[4].value
+    let newroster = []
+    for(selectnode of document.getElementsByClassName('create-form')[0].querySelectorAll('select')){
+      !newroster.includes(selectnode.value) ? newroster.push(selectnode.value) : null
+    }
+    if(newroster.length < 5){
+      alert("Teams must comprise 5 members, and each member can only be selected once.")
+    }
+    else{
+      teamForm.style.display = 'none'
+      addTeamArea.style.display = 'block'
+      let teamselect = event.target.querySelectorAll('select')
+      addTeam = false
+      fetch(DTs_path, {
+        method: "POST",
+        headers: {
+          "Accept": 'application/json',
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "Name":event.target.firstElementChild.value,
+          "Leader":teamselect[0].value,
+          "Member2":teamselect[1].value,
+          "Member3":teamselect[2].value,
+          "Member4":teamselect[3].value,
+          "Member5":teamselect[4].value
+        })
+      }).then(res => res.json()).then(json => {
+        frontTeams = json
+        newteam = frontTeams[frontTeams.length-1]
+        select1.innerHTML += `<option data-teamid=${newteam.id}>${newteam.Name}</option>`
+        select2.innerHTML += `<option data-teamid=${newteam.id}>${newteam.Name}</option>`
       })
-    }).then(res => res.json()).then(json => {
-      frontTeams = json
-      newteam = frontTeams[frontTeams.length-1]
-      select1.innerHTML += `<option data-id=${newteam.id}>${newteam.Name}</option>`
-      select2.innerHTML += `<option data-id=${newteam.id}>${newteam.Name}</option>`
-    })
+    }
   })
 
   //Initial fetch request to load all teams
@@ -82,11 +91,11 @@ document.addEventListener("DOMContentLoaded", () => {
     //loading the teams into the select bars and assigning functionality...
     frontTeams = json
     for(let DT of json){
-      select1.innerHTML += `<option data-id=${DT.id}>${DT.Name}</option>`
-      select2.innerHTML += `<option data-id=${DT.id}>${DT.Name}</option>`
+      select1.innerHTML += `<option data-teamid=${DT.id}>${DT.Name}</option>`
+      select2.innerHTML += `<option data-teamid=${DT.id}>${DT.Name}</option>`
     }
 
-    //load teams on select and create matchup
+    //load teams on select and create matchup when 2 are selected
     select1.addEventListener("change", (event) =>{
       let selectedTeam = frontTeams.find((t) => t.Name == event.target.value)
       switchTeam(div1, "left", selectedTeam)
@@ -114,17 +123,44 @@ document.addEventListener("DOMContentLoaded", () => {
             roster.innerHTML += renderPersona(P)
           }
         }
-        roster.innerHTML += `<li>Expected Power: ${selectedTeam.overall_power}</li>`
+        roster.innerHTML += `<li>Expected Power: ${selectedTeam.overall_power}</li>
+        <button data-deleteid=${selectedTeam.id}>Unmake ${selectedTeam.Name}...</button>`
+        roster.innerHTML = `<center>${roster.innerHTML}</center>`
       }
 
+      //Delete button functionality
+      if(event.target.dataset.deleteid){
+        let selectedTeam = frontTeams.find(t => t.id == Number(event.target.dataset.deleteid))
+        let deletepath = DTs_path+"/"+selectedTeam.id
+        fetch(deletepath, {
+          method: "DELETE",
+          headers: {
+            "Accept": 'application/json',
+            "Content-Type": "application/json"
+          }}).then(res => res.json()).then(json => {frontTeams = json})
+        roster.innerHTML = `<h3>${selectedTeam.Name} has been unmade...RIP</h3>`
+        if(div1.firstElementChild.id == `Head${selectedTeam.id}`){
+          div1.style.setProperty("left", "-50%")
+          setTimeout(() => {div1.innerHTML=""}, 1500)
+        }
+        else if(div2.firstElementchild.id == `Head${selectedTeam.id}`){
+          div2.style.setProperty("right", "-50%")
+          setTimeout(() => {div2.innerHTML=""}, 1500)
+        }
+        for(let node of document.querySelectorAll(`[data-teamid=\"${String(selectedTeam.id)}\"]`)){
+          node.parentElement.removeChild(node)
+        }
+      }
+
+      //Individual Persona display
       if(event.target.dataset.pid){
         modal.style.display = "block";
         let selectedPersona = frontPersonae.find(p => p.id == Number(event.target.dataset.pid))
-        roster.innerHTML = `<h3>${selectedPersona.Name}</h3>`
-        roster.innerHTML += `<p>${selectedPersona.typeclass}<br>Level ${selectedPersona.Power}<br>Team Role: ${selectedPersona.Role}</p>`
-        roster.innerHTML += `<p>Gameverse: ${selectedPersona.Origin}`
-        roster.innerHTML += `<img data-pid=${selectedPersona.id} src="${selectedPersona.Image}" height="450">`
-        roster.innerHTML = `<center>${roster.innerHTML}</center>`
+        roster.innerHTML = `
+          <center><h3>${selectedPersona.Name}</h3>
+          <p>${selectedPersona.typeclass}<br>Level ${selectedPersona.Power}<br>Team Role: ${selectedPersona.Role}</p>
+          <p>Gameverse: ${selectedPersona.Origin}</p>
+          <img data-pid=${selectedPersona.id} src="${selectedPersona.Image}" height="450"></center>`
       }
 
       //Modal hide logic
@@ -186,8 +222,10 @@ const renderDT = function(DT){
 
 const renderPersona = function(P){
   return `
-  <li>${P.Name}<br>${P.typeclass}<br>Level ${P.Power}</li>
+  <span class="listpersona">
   <img class="avatar" data-pid=${P.id} src="${P.Image}" height="50">
+  <p class="personastats">${P.Name}<br>${P.typeclass}<br>Level ${P.Power}</p>
+  </span>
   `
 }
 const renderMatchup = function(div1, div2){
@@ -196,31 +234,36 @@ const renderMatchup = function(div1, div2){
     let team2_id = div2.lastElementChild.firstElementChild.dataset.id
     let team1 = frontTeams.find(t => t.id == team1_id)
     let team2 = frontTeams.find(t => t.id == team2_id)
-    console.log(`${team1.Name} versus ${team2.Name}`)
+    let favored = team2
+    let underdog = team1
+    if(Number(team1.overall_power) > Number(team2.overall_power)){
+        favored = team1
+        underdog = team2
+    }
     matchup.innerHTML = `
     <p><h3>${team1.Name} versus ${team2.Name}</h3></p>
-    <h4>${team1.overall_power} power against ${team2.overall_power}</h4>
+    <h4>${favored.Name} favored: ${favored.overall_power} to ${underdog.overall_power}</h4>
     <p>Will ${team1.leader.Name} triumph against ${team2.leader.Name}?</p>
     <button class="fight!" data-team1power=${team1.overall_power} data-team2power=${team2.overall_power}>Aggrieve!</button>
     `
   }}
 
-  const switchTeam = function(teamdiv, side, newTeam){
-    if(teamdiv.style[side]=="0%"){
-      teamdiv.style.setProperty("opacity","0")
-      setTimeout(()=>{
-        teamdiv.innerHTML = renderDT(newTeam)
-        for(let P of newTeam.personas){
-          if(newTeam.leader.id == P.id){
-            teamdiv.querySelector(`#Team${newTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
-          }
-          else{
-            teamdiv.querySelector(`#Team${newTeam.id}`).innerHTML += renderPersona(P)
-          }
+const switchTeam = function(teamdiv, side, newTeam){
+  if(teamdiv.style[side]=="0%"){
+    teamdiv.style.setProperty("opacity","0")
+    setTimeout(()=>{
+      teamdiv.innerHTML = renderDT(newTeam)
+      for(let P of newTeam.personas){
+        if(newTeam.leader.id == P.id){
+          teamdiv.querySelector(`#Team${newTeam.id}`).insertAdjacentHTML('afterbegin',`<span class="list-leader">${renderPersona(P)}</span>`)
         }
-      },1500)
-    }
-    else {
+        else{
+          teamdiv.querySelector(`#Team${newTeam.id}`).innerHTML += renderPersona(P)
+        }
+      }
+    },1500)
+  }
+  else {
     teamdiv.innerHTML = renderDT(newTeam)
     for(let P of newTeam.personas){
       if(newTeam.leader.id == P.id){
@@ -231,10 +274,10 @@ const renderMatchup = function(div1, div2){
       }
     }
   }
-    if(teamdiv.style[side]=="0%"){
-      setTimeout(()=>{teamdiv.style.setProperty("opacity","1")},1500)
-    }
-    else{
-      teamdiv.style.setProperty(side,"0%")
-    }
+  if(teamdiv.style[side]=="0%"){
+    setTimeout(()=>{teamdiv.style.setProperty("opacity","1")},1500)
   }
+  else{
+    teamdiv.style.setProperty(side,"0%")
+  }
+}

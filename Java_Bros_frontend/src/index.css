@@ -1,10 +1,12 @@
 ul {
+  padding-left: 0%;
   list-style-type: none;
   font-weight: bolder;
   font-style: italic;
 }
 
 ol {
+  padding-left: 0%;
   list-style-type: none;
   font-style: normal;
   font-weight: bold;
@@ -19,8 +21,15 @@ body {
 }
 
 h3 {
+  text-align: center;
   font-family: 'Fredericka the Great', cursive;
-  font-size: 125%;
+  font-size: 135%;
+}
+
+h4 {
+  font-family: 'Cinzel Decorative', cursive;
+  font-weight: bold;
+  font-size: 105%;
 }
 
 button {
@@ -34,6 +43,17 @@ img {
   background: none;
 }
 
+.personastats {
+  text-align: left;
+  word-wrap: normal;
+  width: 150px;
+}
+
+.listpersona {
+  display: flex;
+  justify-content: space-around;
+}
+
 .teamform {
   width: 35%;
   height: auto;
@@ -44,6 +64,7 @@ img {
   transform: scale(1);
   transition: all .3s ease-in-out;
   background: none;
+  border-radius: 6px;
 }
 
 .avatar:hover {
@@ -76,7 +97,8 @@ img {
 
 .list-leader {
   font-style: italic;
-  text-shadow: 2px 2px 2px azure;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px azure;
 }
 
 .create-form {
@@ -125,11 +147,11 @@ img {
 }
 
 .left-sidebar {
-    height: 75%; /* 100% Full-height */
+    height: 88%; /* 100% Full-height */
     width: auto; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
-    top: 5%; /* Stay at the top */
+    top: 6%; /* Stay at the top */
     left: -20%;
     background-image: radial-gradient(#7b8266, #394768); /* Black*/
     border: 2px black;
@@ -141,11 +163,11 @@ img {
 }
 
 .right-sidebar {
-    height: 75%; /* 100% Full-height */
+    height: 88%; /* 100% Full-height */
     width: auto; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
-    top: 5%; /* Stay at the top */
+    top: 6%; /* Stay at the top */
     right: -20%;
     background-image: radial-gradient(#7b8266, #394768); /* Black*/
     border: 2px black;

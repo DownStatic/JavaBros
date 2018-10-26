@@ -43,6 +43,10 @@ class Api::V1::DreamTeamsController < ApplicationController
   end
 
   def destroy
+    @DT = DreamTeam.find_by(id: params[:id])
+    @DT.destroy
+    @DTs = DreamTeam.all
+    render json: @DTs, status: :ok
   end
 
   private
