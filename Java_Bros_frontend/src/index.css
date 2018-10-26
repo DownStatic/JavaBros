@@ -47,6 +47,10 @@ img {
   text-decoration: double underline;
 }
 
+.dtname {
+  text-shadow: 1px 1px 2px gold;
+}
+
 .personastats {
   text-align: left;
   word-wrap: normal;
@@ -91,6 +95,7 @@ img {
   transition: all .3s ease-in-out;
   background: none;
   border-radius: 6px;
+  max-height: 60px;
 }
 
 .indpersona {
@@ -190,7 +195,7 @@ img {
     border-radius: 8px;
     border-style: solid;
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
+    padding-top: 20px; /* Place content 60px from the top */
     transition: 1.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
@@ -206,6 +211,6 @@ img {
     border-radius: 8px;
     border-style: solid;
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
+    padding-top: 20px; /* Place content 60px from the top */
     transition: 1.5s; /* 0.5 second transition effect to slide in the sidenav */
 }

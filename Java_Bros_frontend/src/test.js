@@ -112,11 +112,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Mouse clicks logic
     document.addEventListener("click", event => {
+
       //Modal show logic for teams
       if(event.target.dataset.id){
         modal.style.display = "block";
         let selectedTeam = frontTeams.find((t) => t.id == event.target.dataset.id)
-        roster.innerHTML = `<h3>${selectedTeam.Name}</h3>`
+        roster.innerHTML = `<h3 class="dtname">${selectedTeam.Name}</h3>`
         for(let P of selectedTeam.personas){
           if(selectedTeam.leader.id == P.id){
             roster.firstElementChild.insertAdjacentHTML('afterend',`<span class="list-leader">${renderTeamPersona(P)}</span>`)
@@ -159,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "block";
         let selectedPersona = frontPersonae.find(p => p.id == Number(event.target.dataset.pid))
         roster.innerHTML = `
-          <center><h3>${selectedPersona.Name}</h3>
+          <center><h3 class="personaname">${selectedPersona.Name}</h3>
           <p>${selectedPersona.typeclass}<br>Level ${selectedPersona.Power}<br>Team Role: ${selectedPersona.Role}</p>
           <p>Gameverse: ${selectedPersona.Origin}</p>
           <img class="indpersona" data-pid=${selectedPersona.id} src="${selectedPersona.Image}" height="450"></center>`
@@ -183,13 +184,18 @@ document.addEventListener("DOMContentLoaded", () => {
         let victory = Math.random()*total
         let team1 = select1.value
         let team2 = select2.value
-        if(victory > Number(event.target.dataset.team1power)){
-          victor = frontTeams.find(t => t.Name == team2)
+        if(team1 == team2){
+          alert("You can't fight yourself!")
         }
         else{
-          victor = frontTeams.find(t => t.Name == team1)
+          if(victory > Number(event.target.dataset.team1power)){
+            victor = frontTeams.find(t => t.Name == team2)
+          }
+          else{
+            victor = frontTeams.find(t => t.Name == team1)
+          }
+          modalgif(modal,roster,victor)
         }
-        modalgif(modal,roster,victor)
       }
 
       // Random button 1
@@ -222,25 +228,25 @@ const modalgif = function(modal, roster, victor) {
   roster.width = "auto"
   roster.innerHTML = `<center><img src=${gifs[sample][0]} class="fightgif"></center>`
   setTimeout(() => {
-    roster.innerHTML = `<center><h1>${victor.Name} victory!</h1><br>
+    roster.innerHTML = `<center><p><h3>${victor.Name} victory!</h3></p><br>
     <div class="victoryleader"><img class="vimage" src=${victor.leader.Image}></div></center>`}, gifs[sample][1])
 }
 
 const renderDT = function(DT){
   return `
   <ul id=Head${DT.id}>
-    <h3>${DT.Name}</h3>
+    <h3 class="dtname">${DT.Name}</h3>
     <ol id=Team${DT.id}></ol>
     <li>Expected Power: ${DT.overall_power}</li>
   </ul>
-  <center><button data-id=${DT.id}>Edit ${DT.Name}</button></center>`
+  <center><button data-id=${DT.id}>View ${DT.Name}</button></center>`
 }
 
 const renderPersona = function(P){
   return `
   <span class="listpersona">
-  <img class="avatar" data-pid=${P.id} src="${P.Image}" height="50">
-  <p class="personastats">${P.Name}<br>${P.typeclass}<br>Level ${P.Power}</p>
+  <img class="avatar" data-pid=${P.id} src="${P.Image}">
+  <p class="personastats"><span class="personaname">${P.Name}</span><br>${P.typeclass}<br>Level ${P.Power}</p>
   </span>
   `
 }
@@ -248,7 +254,7 @@ const renderPersona = function(P){
 const renderTeamPersona = function(P){
   return `
   <span class="modallistpersona">
-  <img class="avatar" data-pid=${P.id} src="${P.Image}" height="50">
+  <img class="avatar" data-pid=${P.id} src="${P.Image}">
   <p class="personastats">${P.Name}<br>${P.typeclass}<br>Level ${P.Power}</p>
   <p>Team Role:<br>${P.Role}</p>
   </span>
