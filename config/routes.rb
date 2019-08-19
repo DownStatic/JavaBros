@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/', :to => redirect('Java_Bros_frontend/index.html')
+  get '/', :to => redirect(`#{config.root}/Java_Bros_frontend/index.html`)
 
 end
