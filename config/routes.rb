@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/', to: static(`/Java_Bros_frontend/index.html`)
+  get '/app', to: static(`/Java_Bros_frontend/index.html`)
 
 end
