@@ -8,4 +8,7 @@ Rails.application.routes.draw do
       resources :personas, only: [:index, :show]
     end
   end
+
+  get '/', to: => redirect('Java_Bros_frontend/index.html')
+  
 end
