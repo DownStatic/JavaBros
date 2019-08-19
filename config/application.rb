@@ -21,7 +21,6 @@ module JavaBros
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
-    config.autoload_paths << "#{config.root}/Java_Bros_frontend"
     config.serve_static_files = true
 
     # Settings in config/environments/* take precedence over those specified here.
