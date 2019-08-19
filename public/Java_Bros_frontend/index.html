@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
+
+    <!-- Semantic UI components below -->
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+
+    <!-- Material UI components below -->
+    <!-- <script src="https://unpkg.com/@material-ui/core/umd/material-ui.production.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">  -->
+
+    <link rel="stylesheet" href="./src/index.css">
+  </head>
+
+  <div>
+    <body id="main">
+        <center><h1> CrossWars.js </h1>
+        <label class="team1label">Load Team 1</label>||<label class="team2label">Load Team 2</label><br>
+        <select id="team_1_select">
+          <option disabled selected value style="display:none"></option>
+        </select>
+        <select id="team_2_select">
+          <option disabled selected value style="display:none"></option>
+        </select></center><br>
+        <div class="random-buttons">
+          <center>
+            <button type="button" id="random-btn1">Random Team 1</button>
+            <button type="button" id="random-btn2">Random Team 2</button>
+          </center>
+        </div>
+      <div class="teamform"><center>
+        <form class="create-form">
+          Name<input type="text" name="" placeholder="team name">
+          <label>Team Leader</label>
+          <select id="Leader-select">
+            <option disabled selected value style="display:none"></option>
+          </select><br>
+          <label>Slot#2</label>
+          <select class ="Persona-select">
+            <option disabled selected value style="display:none"></option>
+          </select>
+          <label>Slot#3</label>
+          <select class ="Persona-select">
+            <option disabled selected value style="display:none"></option>
+          </select><br>
+          <label>Slot#4</label>
+          <select class ="Persona-select">
+            <option disabled selected value style="display:none"></option>
+          </select>
+          <label>Slot#5</label>
+          <select class ="Persona-select">
+            <option disabled selected value style="display:none"></option>
+          </select><br>
+          <input type="submit" value="Create Team">
+          <button id="hideform">Hide</button>
+        </form></center>
+      </div>
+    </div>
+    <br>
+    <div class="createbutton">
+      <p id='add-team' style='text-align:center'>Want to create a team?<button id='new-team-btn'>Create A Team!</button></p>
+    </div>
+    <br>
+    <div id="T1" class="left-sidebar"></div>
+    <div id="T2" class="right-sidebar"></div>
+    <div id="matchup"></div>
+    <div id="Personae" class="modal">
+      <div class="modal-content"></div>
+    </div>
+</body>
+  <!-- <script type="text/javascript", src="./src/index.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+  <script type="text/javascript", src="./src/masonry.pkgd.min.js"></script>
+  <script type="text/javascript", src="./src/test.js"></script>
+</html>
